@@ -43,7 +43,7 @@ fun CarfaxAppBar(
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSecondary,
                         modifier = Modifier.clickable {
-
+                            navController.popBackStack()
                         })
                 }
             },
