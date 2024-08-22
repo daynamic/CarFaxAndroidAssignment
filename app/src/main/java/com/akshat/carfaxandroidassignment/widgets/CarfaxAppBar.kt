@@ -32,13 +32,13 @@ fun CarfaxAppBar(
         TopAppBar(
             title = {
                 Text(text = title,
-                    color = MaterialTheme.colorScheme.primary,
+                    color = Color.White,
                     style = TextStyle(fontWeight = FontWeight.Bold,
                         fontSize = 15.sp)
                 )
             },
             navigationIcon = {
-                if (icon != null) {
+                if (icon != null && !isMainScreen) {
                     Icon(imageVector = icon,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSecondary,
@@ -47,7 +47,7 @@ fun CarfaxAppBar(
                         })
                 }
             },
-            colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Transparent),
+            colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color(red = 72, green = 117, blue = 183)),
         )
     }
 }
