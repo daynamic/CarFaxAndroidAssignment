@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -32,22 +33,27 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.akshat.carfaxandroidassignment.model.Listings
 
 @Composable
-fun CarDetailsRow(car: Listings, onItemClick: (String) -> Unit = { }) {
+fun CarDetailsRow(
+    car: Listings,
+    isMainScreen: Boolean = true,
+    onItemClick: (Listings) -> Unit = { },
+) {
 
     Card(
         modifier = Modifier
             .padding(12.dp)
             .fillMaxWidth()
-            .height(350.dp)
+            .then(if (isMainScreen) Modifier.height(350.dp) else Modifier.fillMaxHeight())
             .wrapContentHeight()
             .clickable {
-                onItemClick(car.id)
+                onItemClick(car)
             },
         shape = RoundedCornerShape(corner = CornerSize(6.dp)),
         colors = CardColors(
@@ -69,14 +75,285 @@ fun CarDetailsRow(car: Listings, onItemClick: (String) -> Unit = { }) {
         }
 
         PriceMileageRow(car = car)
-        AddressRow(car = car)
-        HorizontalDivider()
+        if (isMainScreen) {
+            AddressRow(car = car)
+            HorizontalDivider()
+        } else {
+            HorizontalDivider()
+            VehicalInfoTextRow()
+            VehicalInfoAttrubitesRow1(car = car)
+            VehicalInfoAttrubitesRow2(car = car)
+            VehicalInfoAttrubitesRow3(car = car)
+            VehicalInfoAttrubitesRow4(car = car)
+            VehicalInfoAttrubitesRow5(car = car)
+            VehicalInfoAttrubitesRow6(car = car)
+            VehicalInfoAttrubitesRow7(car = car)
+            VehicalInfoAttrubitesRow8(car = car)
+            HorizontalDivider(thickness = 4.dp)
+        }
         CallDealerRow(car = car)
 
 
     }
 
 
+}
+
+@Composable
+fun VehicalInfoAttrubitesRow8(car: Listings) {
+    Row(
+        modifier = Modifier
+            .padding(start = 12.dp)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(30.dp)
+    ) {
+
+        Row(modifier = Modifier.padding(4.dp)) {
+            Text(
+                text = "Fuel",
+                modifier = Modifier.padding(end = 10.dp),
+                color = Color.DarkGray,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        }
+
+        Row(modifier = Modifier.padding(4.dp)) {
+            Text(
+                text = car.fuel,
+                modifier = Modifier.padding(end = 30.dp),
+                textAlign = TextAlign.Start,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        }
+    }
+}
+
+@Composable
+fun VehicalInfoAttrubitesRow7(car: Listings) {
+    Row(
+        modifier = Modifier
+            .padding(start = 12.dp)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(35.dp)
+    ) {
+
+        Row(modifier = Modifier.padding(4.dp)) {
+            Text(
+                text = "Engine",
+                modifier = Modifier.padding(end = 10.dp),
+                color = Color.DarkGray,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        }
+
+        Row(modifier = Modifier.padding(4.dp)) {
+            Text(
+                text = car.engine,
+                textAlign = TextAlign.Start,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        }
+    }
+}
+
+@Composable
+fun VehicalInfoAttrubitesRow6(car: Listings) {
+    Row(
+        modifier = Modifier
+            .padding(start = 12.dp)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(30.dp)
+    ) {
+
+        Row(modifier = Modifier.padding(4.dp)) {
+            Text(
+                text = "Body Style",
+                modifier = Modifier.padding(end = 10.dp),
+                color = Color.DarkGray,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        }
+
+        Row(modifier = Modifier.padding(4.dp)) {
+            Text(
+                text = car.bodytype,
+                textAlign = TextAlign.Start,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        }
+    }
+}
+
+@Composable
+fun VehicalInfoAttrubitesRow5(car: Listings) {
+    Row(
+        modifier = Modifier
+            .padding(start = 12.dp)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+
+        Row(modifier = Modifier.padding(4.dp)) {
+            Text(
+                text = "Transmission",
+                modifier = Modifier.padding(end = 10.dp),
+                color = Color.DarkGray,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        }
+
+        Row(modifier = Modifier.padding(1.dp)) {
+            Text(
+                text = car.transmission,
+                textAlign = TextAlign.Start,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        }
+    }
+}
+
+@Composable
+fun VehicalInfoAttrubitesRow4(car: Listings) {
+    Row(
+        modifier = Modifier
+            .padding(start = 12.dp)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(20.dp)
+    ) {
+
+        Row(modifier = Modifier.padding(4.dp)) {
+            Text(
+                text = "Drive Type",
+                modifier = Modifier.padding(end = 10.dp),
+                color = Color.DarkGray,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        }
+
+        Row(modifier = Modifier.padding(4.dp)) {
+            Text(
+                text = car.drivetype,
+                textAlign = TextAlign.Start,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        }
+    }
+}
+
+@Composable
+fun VehicalInfoAttrubitesRow3(car: Listings) {
+    Row(
+        modifier = Modifier
+            .padding(start = 12.dp)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(2.dp)
+    ) {
+
+        Row(modifier = Modifier.padding(4.dp)) {
+            Text(
+                text = "Interior Color",
+                modifier = Modifier.padding(end = 10.dp),
+                color = Color.DarkGray,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        }
+
+        Row(modifier = Modifier.padding(2.dp)) {
+            Text(
+                text = car.interiorColor,
+                textAlign = TextAlign.Start,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        }
+    }
+}
+
+@Composable
+fun VehicalInfoAttrubitesRow2(car: Listings) {
+    Row(
+        modifier = Modifier
+            .padding(start = 12.dp)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(2.dp)
+    ) {
+
+        Row(modifier = Modifier.padding(4.dp)) {
+            Text(
+                text = "Exterior Color",
+                modifier = Modifier.padding(end = 10.dp),
+                color = Color.DarkGray,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        }
+
+        Row(modifier = Modifier.padding(2.dp)) {
+            Text(
+                text = car.exteriorColor,
+                textAlign = TextAlign.Start,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        }
+    }
+}
+
+@Composable
+fun VehicalInfoAttrubitesRow1(car: Listings) {
+    Row(
+        modifier = Modifier
+            .padding(start = 12.dp, top = 15.dp)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(35.dp)
+    ) {
+
+        Row(modifier = Modifier.padding(4.dp)) {
+            Text(
+                text = "Location ",
+                color = Color.DarkGray,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        }
+
+        Row(modifier = Modifier.padding(4.dp)) {
+            Text(
+                text = car.ownerHistory.history[0].city + " , " + car.ownerHistory.history[0].state,
+                style = MaterialTheme.typography.bodyLarge,
+                textAlign = TextAlign.Start,
+
+                )
+        }
+    }
+
+
+}
+
+@Composable
+fun VehicalInfoTextRow() {
+    Row(
+        modifier = Modifier
+            .padding(start = 12.dp, top = 12.dp)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+
+        Row(modifier = Modifier.padding(4.dp)) {
+            Text(
+                text = "Vehicle Info",
+                modifier = Modifier.padding(end = 10.dp),
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Bold
+            )
+        }
+
+    }
 }
 
 @Composable

@@ -1,6 +1,5 @@
 package com.akshat.carfaxandroidassignment.screens
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,8 +22,11 @@ import androidx.navigation.NavController
 import com.akshat.carfaxandroidassignment.data.DataOrException
 import com.akshat.carfaxandroidassignment.model.CarData
 import com.akshat.carfaxandroidassignment.model.Listings
+import com.akshat.carfaxandroidassignment.navigation.CarfaxScreens
 import com.akshat.carfaxandroidassignment.widgets.CarDetailsRow
 import com.akshat.carfaxandroidassignment.widgets.CarfaxAppBar
+import com.google.gson.Gson
+import java.net.URLEncoder
 
 
 @Composable
@@ -59,13 +61,13 @@ fun MainScaffold(cars: CarData, navController: NavController) {
         )
     }) { it ->
         Surface(modifier = Modifier.padding(top = it.calculateTopPadding())) {
-            MainContent(data = cars)
+            MainContent(data = cars, navController = navController)
         }
     }
 }
 
 @Composable
-fun MainContent(data: CarData) {
+fun MainContent(data: CarData, navController: NavController) {
 
     Surface(
         modifier = Modifier
@@ -79,9 +81,10 @@ fun MainContent(data: CarData) {
             contentPadding = PaddingValues(1.dp)
         ) {
             items(items = data.listings) { item: Listings ->
-                CarDetailsRow(car = item){car ->
-                    Toast.makeText(context, "clicked on $car", Toast.LENGTH_SHORT).show()
-
+                CarDetailsRow(car = item) { car ->
+                    val selectedCarListingString = Gson().toJson(car)
+                    val selectedCarListing = URLEncoder.encode(selectedCarListingString, "utf-8")
+                    navController.navigate(route = CarfaxScreens.DetailScreen.name + "/$selectedCarListing")
                 }
             }
         }

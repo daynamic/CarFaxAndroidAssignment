@@ -34,7 +34,7 @@ fun CarfaxAppBar(
                 Text(text = title,
                     color = Color.White,
                     style = TextStyle(fontWeight = FontWeight.Bold,
-                        fontSize = 15.sp)
+                        fontSize = 17.sp)
                 )
             },
             navigationIcon = {
